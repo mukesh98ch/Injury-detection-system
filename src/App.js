@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
+import Dashboard from './Components/Dashboard/Dashboard';
+import List from './Components/List/List';
+import Navbar from './Components/Navbar/Navbar';
 import './App.css';
 
 function App() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <Navbar/>
+      <h1>Injury Tracking System</h1>
+      <Dashboard />
+      <List />
+      
     </div>
   );
 }
